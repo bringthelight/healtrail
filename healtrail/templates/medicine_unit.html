@@ -5,33 +5,34 @@
 
 <div class="container-fluid py-8">
 
-  <hr class="horizontal dark my-1">
-  <div class="card-body pt-sm-3 pt-0">
+  <div class="horizontal dark my-1">
+  
 
+  <div class="d-flex justify-content-between">
+    <h3 class="text-secondary">Medicine Unit</h3>
+    <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#addmeds">
+      Add Medicines
+    </button>
   </div>
-
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addmeds">
-    Add Medicines
-  </button>
 
   <div class="modal fade" id="addmeds" tabindex="-1" aria-labelledby="addmeds" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered d-flex justify-content-center">
       <div class="modal-content border-0 shadow w-50">
         <div class="modal-header form-header">
           <h5 class="modal-title" id="addmeds">Add Medicines</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="close"></button>
+          <button  type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="close"></button>
         </div>
         <div class="modal-body">
           <div class="container">
-            <form>
+            <form action="{{url_for('data_fetch.add')}}" method="POST">
               <div class="name">
-                <label for="name" class="form-label">Medicine Name</label>
-                <input type="text" name="medname" class="form-control" id="medname" placeholder="Enter Medicine name">
+                <label for="name" class="form-label">Medicine Unit Name</label>
+                <input type="text" name="medname" class="form-control" id="medname" placeholder="For ex. Kilogram,Milligram etc.">
               </div>
               <div class="sname">
-                <label for="" class="form-label">Medicine short Name</label>
+                <label for="" class="form-label"> Unit Short Name</label>
                 <input type="text" name="shortname" class="form-control" id="shortname"
-                  placeholder="Enter Medicine short-form">
+                  placeholder="For ex. kg,mg etc.">
               </div>
               <div class="text-end mt-3">
                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -64,7 +65,7 @@
             <td>{{ item.unit_short_name }}</td>
             <td class="text-center">
 
-              <a href="{{url_for('edit.update',id=item.id)}}" class="btn" data-bs-target="#editmeds"
+              <a href="{{url_for('edit.update',id=item.id)}}" data-bs-target="#editmeds"
                 data-bs-toggle="modal">
                 <i class="bi bi-pencil-square"></i>
               </a>
@@ -81,13 +82,13 @@
                       <div class="container">
                         <form action="{{url_for('edit.update', id=item.id)}}" method="post">
                           <div class="name">
-                            <label for="name" class="form-label">Medicine Name</label>
+                            <label for="name" class="form-label">Medicine Unit</label>
                             <input type="text" name="medname" class="form-control" id="medname"
-                              placeholder="Enter Medicine name">
+                              value="{{item.unit_name}}">
                           </div>
                           <div class="sname">
-                            <label for="" class="form-label">Medicine Short Name</label>
-                            <input type="text" name="shortname" class="form-control" id="shortname" value="">
+                            <label for="" class="form-label">Unit Short Name</label>
+                            <input type="text" name="shortname" class="form-control" id="shortname" value="{{item.unit_short_name}}">
                           </div>
                           <div class="text-end mt-3">
                             <button type="submit" class="btn btn-primary">Submit</button>
@@ -99,12 +100,15 @@
                   </div>
                 </div>
               </div>
+              <a href="{{url_for('edit.delete',id=item.id)}}" onclick="return confirm('are you sure you want to delete {{ item.unit_name }} ???')"><i class="bi bi-trash-fill mx-3"></i></a>
             </td>
           </tr>
+          {% endfor %}
         </tbody>
       </table> 
 </div>
+</div>
 
-{% endfor %}
+
 
 {% endblock %}
