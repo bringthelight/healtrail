@@ -1,0 +1,110 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+
+
+<div class="container-fluid py-8">
+
+  <hr class="horizontal dark my-1">
+  <div class="card-body pt-sm-3 pt-0">
+
+  </div>
+
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addmeds">
+    Add Medicines
+  </button>
+
+  <div class="modal fade" id="addmeds" tabindex="-1" aria-labelledby="addmeds" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered d-flex justify-content-center">
+      <div class="modal-content border-0 shadow w-50">
+        <div class="modal-header form-header">
+          <h5 class="modal-title" id="addmeds">Add Medicines</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <form>
+              <div class="name">
+                <label for="name" class="form-label">Medicine Name</label>
+                <input type="text" name="medname" class="form-control" id="medname" placeholder="Enter Medicine name">
+              </div>
+              <div class="sname">
+                <label for="" class="form-label">Medicine short Name</label>
+                <input type="text" name="shortname" class="form-control" id="shortname"
+                  placeholder="Enter Medicine short-form">
+              </div>
+              <div class="text-end mt-3">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+      <table id="medicine_inventory" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+          <tr>
+            <th>Sr No</th>
+            <th>Medicine Name</th>
+            <th>Medicine short name</th>
+            <th>action</th>
+          </tr>
+        </thead>
+        <tbody class="table table-striped table-bordered">
+          {% for item in data %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ item.unit_name }}</td>
+            <td>{{ item.unit_short_name }}</td>
+            <td class="text-center">
+
+              <a href="{{url_for('edit.update',id=item.id)}}" class="btn" data-bs-target="#editmeds"
+                data-bs-toggle="modal">
+                <i class="bi bi-pencil-square"></i>
+              </a>
+              <!-- Edit modal -->
+              <div class="modal fade" id="editmeds" tabindex="-1" aria-labelledby="editmeds" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered d-flex justify-content-center">
+                  <div class="modal-content border-0 shadow w-50">
+                    <div class="modal-header form-header">
+                      <h5 class="modal-title" id="editmeds">Edit Medicines</h5>
+                      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="container">
+                        <form action="{{url_for('edit.update', id=item.id)}}" method="post">
+                          <div class="name">
+                            <label for="name" class="form-label">Medicine Name</label>
+                            <input type="text" name="medname" class="form-control" id="medname"
+                              placeholder="Enter Medicine name">
+                          </div>
+                          <div class="sname">
+                            <label for="" class="form-label">Medicine Short Name</label>
+                            <input type="text" name="shortname" class="form-control" id="shortname" value="">
+                          </div>
+                          <div class="text-end mt-3">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table> 
+</div>
+
+{% endfor %}
+
+{% endblock %}
