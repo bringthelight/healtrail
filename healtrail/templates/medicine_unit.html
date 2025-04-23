@@ -65,12 +65,12 @@
             <td>{{ item.unit_short_name }}</td>
             <td class="text-center">
 
-              <a href="{{url_for('edit.update',id=item.id)}}" data-bs-target="#editmeds"
+              <a href="{{url_for('edit.update',id=item.id)}}" data-bs-target="#editmeds{{item.id}}"
                 data-bs-toggle="modal">
                 <i class="bi bi-pencil-square"></i>
               </a>
               <!-- Edit modal -->
-              <div class="modal fade" id="editmeds" tabindex="-1" aria-labelledby="editmeds" aria-hidden="true">
+              <div class="modal fade" id="editmeds{{item.id}}" tabindex="-1" aria-labelledby="editmeds" aria-hidden="true">
                 <div class="modal-dialog modal-lg modal-dialog-centered d-flex justify-content-center">
                   <div class="modal-content border-0 shadow w-50">
                     <div class="modal-header form-header">
