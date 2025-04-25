@@ -67,3 +67,4 @@ config.py
 local_settings.py
 
 flask_session
+healtrail.zip

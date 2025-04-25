@@ -290,10 +290,15 @@
             <a class="navbar-brand font-weight-bolder">HealEasy</a>
 
             <div class="navbar-nav ms-auto">
+              {% if session['user_id'] %}
+              <a class="nav-link btn btn-primary text-grey fw-bold mt-2 mx-2"
+                href="{{ url_for('signin.logout') }}">Logout</a>
+              {% else %}
               <a class="nav-link btn btn-primary text-grey fw-bold mt-2 mx-2"
                 href="{{ url_for('signin.login') }}">Sign-In</a>
               <a class="nav-link btn btn-primary text-grey fw-bold mt-2"
                 href="{{ url_for('auth.signup') }}">Sign-up</a>
+              {% endif %}
             </div>
           </div>
         </nav>
